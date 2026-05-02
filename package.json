@@ -1,6 +1,6 @@
 {
   "name": "poseidon-h",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": {
     "name": "Ash Whitehat",
     "url": "https://github.com/ashwhitehat"
@@ -27,13 +27,6 @@
   ],
   "private": false,
   "scripts": {
-    "preprocess": "rm -rf setup_params proof_params && mkdir setup_params proof_params",
-    "ptau": "snarkjs powersoftau new bn128 10 setup_params/pot10_0000.ptau -v && snarkjs powersoftau contribute setup_params/pot10_0000.ptau setup_params/pot10_0001.ptau -v -e='test' && snarkjs powersoftau prepare phase2 setup_params/pot10_0001.ptau setup_params/pot10_final.ptau -v",
-    "setup": "snarkjs groth16 setup poseidon.r1cs setup_params/pot10_final.ptau setup_params/poseidon_0000.zkey && snarkjs zkey contribute setup_params/poseidon_0000.zkey setup_params/poseidon_0001.zkey -v -e='test' && snarkjs zkey export verificationkey setup_params/poseidon_0001.zkey setup_params/verification_key.json",
-    "witness": "node poseidon_js/generate_witness.js poseidon_js/poseidon.wasm circuit/input.json proof_params/witness.json",
-    "prove": "snarkjs groth16 prove setup_params/poseidon_0001.zkey proof_params/witness.json proof_params/proof.json proof_params/public.json",
-    "verify": "snarkjs groth16 verify setup_params/verification_key.json proof_params/public.json proof_params/proof.json",
-    "groth16": "yarn preprocess && yarn ptau && yarn setup && yarn witness && yarn prove && yarn verify",
     "lint": "eslint src",
     "fmt": "prettier --write .",
     "fmt:check": "prettier --check .",

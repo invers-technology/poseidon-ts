@@ -27,4 +27,4 @@ jobs:
       - name: Library Code Format
         run: yarn fmt:check && yarn lint
       - name: Library Test
-        run: yarn compile && yarn preprocess && yarn ptau && yarn setup && yarn test
+        run: yarn compile && yarn test

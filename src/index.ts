@@ -3,8 +3,18 @@ import { pow5, mix } from "./operation";
 import { validateInputs } from "./validation";
 export { randomFieldElement, P } from "./ff";
 
+const MAX_INPUTS = 16;
+
 export const poseidon = (inputs: string[] | number[] | bigint[]): bigint => {
   const { length } = inputs;
+
+  if (length > MAX_INPUTS) {
+    const chunks: bigint[] = [];
+    for (let start = 0; start < length; start += MAX_INPUTS) {
+      chunks.push(poseidon(inputs.slice(start, start + MAX_INPUTS)));
+    }
+    return poseidon(chunks);
+  }
   const t = length + 1;
   const { p, m, c } = constants[length];
   try {
